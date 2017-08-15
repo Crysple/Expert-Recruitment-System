@@ -1,0 +1,52 @@
+.ipstyle{
+	height:22px;
+}
+.db div{
+	border: 1px solid;
+	height: 32px;
+	padding-top: 5px;
+}
+#doubleheight div{
+	height: 64px;
+}
+.bgcolorblue{
+	background-color: rgb(51,122,183)
+}
+.headdiv{
+	height:40px;
+	text-align: left;
+	background-color: rgb(51,122,183)
+}
+.nav-tabs > li .close {
+	margin: -2px 0 0 10px;
+	font-size: 18px;
+}
+#img{
+	height:128px;
+	border: 1px solid;
+}
+#att{
+	margin:20px 20px;
+	background-color: rgb(202,217,232);
+}
+#leftslide{
+	background-color: rgb(241,241,241);
+	padding-top:20px;
+	padding-bottom: 20px;
+	border: 1px solid rgb(192,192,192);
+	border-radius:3px;
+}
+h1{
+	text-align:center;
+}
+h3{
+	text-align:center;
+}
+h4{
+	margin:0;
+	display:inline;
+}
+label{
+	padding-top:auto;
+	padding-bottom: auto;
+}
