@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	    <title>Have a try with Bootstrap</title>
+	    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+	    <style>
+	    .jumbotron{
+	    	background-color: #2E2D88;
+	    	color:white;
+	    }
+	    .ipstyle{
+	    	height:22px;
+	    }
+	    .db div{
+	    	border: 1px solid;
+	    	height: 32px;
+	    	padding-top: 5px;
+	    }
+	    #doubleheight div{
+	    	height: 64px;
+	    }
+	    .bgcolorblue{
+	    	background-color: rgb(51,122,183)
+	    }
+	    .headdiv{
+	    	height:40px;
+	    	text-align: left;
+	    	background-color: rgb(51,122,183)
+	    }
+	    #img{
+	    	height:128px;
+	    	border: 1px solid;
+	    }
+	    h1{
+	    	text-align:center;
+	    }
+	    h4{
+	    	margin:0;
+	    }
+	    label{
+	    	padding-top:auto;
+	    	padding-bottom: auto;
+	    }
+	    </style>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	    <script type="text/javascript">
+	    	function addcertificate(){
+	    		$("#certificate").append('<div class="row db"><div class="col-xs-4"><input class="form-control ipstyle"></div><div class="col-xs-4"><input class="form-control ipstyle"></div><div class="col-xs-4"><button type="submit" class="btn btn-xs btn-default nbtn">删除</button></div></div>');
+	    	}
+	    	function addassess(){
+	    		$("#assess").append('<div class="row db" id="doubleheight"><div class="col-xs-2"><input class="form-control ipstyle"></div><div class="col-xs-3"><input class="form-control ipstyle"></div><div class="col-xs-4"><textarea class="form-control"></textarea></div><div class="col-xs-2"><select class="form-control ipstyle"><option>请选择</option><option>评估</option></select></div><div class="col-xs-1"><button type="submit" class="btn btn-xs btn-default delassess" >删除</button></div></div>');
+	    	}
+	    	function del(){
+	    		$(this).parent().parent().remove();
+	    	}
+	    	num_certificate = 0;
+	    	$(document).ready(function(){
+			  $("button#addcertificate").click(addcertificate);
+			  $("button#addassess").click(addassess);
+			});
+
+			//certificate
+			$(document).on('click', 'button#addcertificate',function() {
+        		$(".nbtn").click(del) ;
+ 			}) ;
+ 			//assess
+ 			$(document).on('click', 'button#addassess',function() {
+        		$(".delassess").click(del) ;
+ 			}) ;
+		</script>
+	</head>
+
+	
+	<body>
+
+		<div class="container">
+
+			<div class="page-header">
+				<h1>教育研究院专家征集系统</h1>
+			</div>
+			<div class="row">
+
+				<div class="col-xs-2">
+					<ul class="nav nav-pills nav-stacked">
+						<li class="active"><a href="#">首页</a></li>
+						<li><a href="#">专家信息填入</a></li>
+						<li><a href="#">密码修改</a></li>
+					</ul>
+				</div>
+
+				<div class="col-xs-10">
+					<div class="row db">
+						<button type="submit" class="btn btn-default">编辑</button>
+						<button type="submit" class="btn btn-default">保存</button>
+						<button type="submit" class="btn btn-default">提交</button>
+					</div>
+					<div class="row db">
+						<div class="col-xs-12 label label-default headdiv">
+						<h4>基本信息</h4>
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>专家证书编号：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<label>状态</label>
+						</div>
+						<div class="col-xs-3">5
+						</div>
+					</div>
+					<!-- image !-->
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="row db">
+								<div class="col-xs-6">
+									<label>证书有效时间：</label>
+								</div>
+								<div class="col-xs-6">
+									<input class="form-control ipstyle">
+								</div>
+								<div class="col-xs-6">
+									<label>专家姓名：</label>
+								</div>
+								<div class="col-xs-6">
+									<input class="form-control ipstyle">
+								</div>
+								<div class="col-xs-6">
+									<label>专家性别：</label>
+								</div>
+								<div class="col-xs-6">
+									<select class="form-control ipstyle">
+										<option>请选择</option>
+										<option>男</option>
+										<option>女</option>
+									</select>
+								</div>
+								<div class="col-xs-6">
+									<label>出生日期：</label>
+								</div>
+								<div class="col-xs-6">
+									<input class="form-control ipstyle">
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-6" id="img">
+						</div>
+
+					</div>
+					<!-- end image !-->
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>政治面貌：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<label>证件类型：</label>
+						</div>
+						<div class="col-xs-3">
+							<select class="form-control ipstyle">
+								<option>请选择</option>
+								<option>居民身份证</option>
+								<option>士官证</option>
+								<option>学生证</option>
+								<option>驾驶证</option>
+								<option>护照</option>
+								<option>港澳通行证</option>
+							</select>
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>颁发机构：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<label>证件编号：</label>
+						</div>
+						<div class="col-xs-3">5
+						</div>
+					</div>
+					<!-- education !-->
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>最高学历：</label>
+						</div>
+						<div class="col-xs-3">
+							<select class="form-control ipstyle">
+								<option>请选择</option>
+								<option>研究生学历</option>
+								<option>大学本科学历</option>
+								<option>大学专科学历</option>
+								<option>中专学历</option>
+								<option>高中学历</option>
+								<option>初中学历</option>
+							</select>
+						</div>
+						<div class="col-xs-3">
+							<label>最高学位：</label>
+						</div>
+						<div class="col-xs-3">
+							<select class="form-control ipstyle">
+								<option>请选择</option>
+								<option>博士学位</option>
+								<option>硕士学位</option>
+								<option>学士学位</option>
+							</select>
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>职称：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<label>证书编号：</label>
+						</div>
+						<div class="col-xs-3">5
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>职务：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<label>从业时长：</label>
+						</div>
+						<div class="col-xs-3">5
+						</div>
+					</div>
+					<!-- retire? !-->
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>是否退休：</label>
+						</div>
+						<div class="col-xs-3">
+							<select class="form-control ipstyle">
+								<option>请选择</option>
+								<option>是</option>
+								<option>否</option>
+							</select>
+						</div>
+						<div class="col-xs-3">
+							<label>是否兼职：</label>
+						</div>
+						<div class="col-xs-3">
+							<select class="form-control ipstyle">
+								<option>请选择</option>
+								<option>是</option>
+								<option>否</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>工作单位：</label>
+						</div>
+						<div class="col-xs-9">
+							<input class="form-control ipstyle">
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>通信详细地址：</label>
+						</div>
+						<div class="col-xs-9">
+							<input class="form-control ipstyle">
+						</div>
+					</div> 
+
+					<!-- zip code !-->
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>邮政编码：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<label>电子邮件：</label>
+						</div>
+						<div class="col-xs-3">5
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>移动电话：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<label>家庭电话：</label>
+						</div>
+						<div class="col-xs-3">5
+						</div>
+					</div>
+					<!-- 资格证书 !-->
+					<div class="row">
+						<div class="db">
+						<div class="col-xs-3">
+							<label>资格证书名及编号</label>
+						</div>
+						</div>
+						<div class="col-xs-9" id="certificate">
+							<div class="row db">
+								<div class="col-xs-4">
+									<input class="form-control ipstyle">
+								</div>
+								<div class="col-xs-4">
+									<input class="form-control ipstyle">
+								</div>
+								<div class="col-xs-4">
+									<button type="submit" class="btn btn-xs btn-default" id="addcertificate">增加资格证书</button>
+									<button type="submit" class="btn btn-xs btn-default">删除</button>
+								</div>
+							</div>
+
+
+
+						</div>
+						
+					</div>
+
+					<div class="row db">
+						<div class="col-xs-3">
+							<label>评审领域：</label>
+						</div>
+						<div class="col-xs-3">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-3">
+							<button type="submit" class="btn btn-xs btn-default" >选择评审领域</button>
+						</div>
+						<div class="col-xs-3">5
+						</div>
+					</div>
+
+					<!--  评估／评审经历!-->
+					<div class="row db">
+						<div class="col-xs-12 label label-default headdiv">
+						<h4>评估／评审经历&nbsp<button type="submit" class="btn btn-xs btn-default" id="addassess" >增加评估／评审经历</button></h4>
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-2">
+							<label>时间</label>
+						</div>
+						<div class="col-xs-3">
+							<label>任务名称</label>
+						</div>
+						<div class="col-xs-4">
+							<label>任务描述</label>
+						</div>
+						<div class="col-xs-2">
+							<label>任务类型</label>
+						</div>
+						<div class="col-xs-1">
+							<label>操作</label>
+						</div>
+					</div>
+					<div id="assess">
+					</div>
+
+					<!--  工作经历!-->
+					<div class="row db">
+						<div class="col-xs-12 label label-default headdiv">
+						<h4>工作经历&nbsp<button type="submit" class="btn btn-xs btn-default" >增加工作经历</button></h4>
+						
+						</div>
+					</div>
+					<div class="row db">
+						<div class="col-xs-2">
+							<label>起始时间</label>
+						</div>
+						<div class="col-xs-2">
+							<label>终止时间</label>
+						</div>
+						<div class="col-xs-5">
+							<label>工作单位</label>
+						</div>
+						<div class="col-xs-1">
+							<label>职务</label>
+						</div>
+						<div class="col-xs-1">
+							<label>证明人</label>
+						</div>
+						<div class="col-xs-1">
+							<label>操作</label>
+						</div>
+					</div>
+
+					<div class="row db">
+						<div class="col-xs-2">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-2">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-5">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-1">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-1">
+							<input class="form-control ipstyle">
+						</div>
+						<div class="col-xs-1">
+							<button type="submit" class="btn btn-xs btn-default" id="delworkexperience" >删除</button>
+						</div>
+					</div>
+					<!--  业务专业!-->
+					<div class="row db">
+						<div class="col-xs-12 label label-default headdiv">
+						<h4>业务专业</h4>
+						</div>
+					</div>
+					<!--  工作业绩!-->
+					<div class="row db">
+						<div class="col-xs-12 label label-default headdiv">
+						<h4>工作业绩</h4>
+						</div>
+					</div>
+					<!--  回避单位!-->
+					<div class="row db">
+						<div class="col-xs-12 label label-default headdiv">
+						<h4>回避单位&nbsp
+						<button type="submit" class="btn btn-xs btn-default" >增加回避单位</button>
+						</h4>
+						</div>
+						
+					</div>
+					<div class="row db">
+						<div class="col-xs-8">
+							<label>单位名称</label>
+						</div>
+						<div class="col-xs-2">
+							<label>是否工作单位</label>
+						</div>
+						<div class="col-xs-2">
+							<label>操作</label>
+						</div>
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+
+		<script src="js/bootstrap.min.js"></script>
+
+	</body>
+</html>
