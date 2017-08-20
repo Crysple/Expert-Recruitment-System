@@ -1,41 +1,82 @@
 function check_null(id,fieldname){
 	console.log('#'+id);
 	if($('#'+id).val()==""){
-		$('#'+id).after('<span style="color:red;">*'+fieldname+'不能为空</span>');
+		$('#'+id).next().text('*'+fieldname+'不能为空');
 		return false;
 	}
-	else return true;
+	else{
+		$('#'+id).next().text("");
+		return true;
+	}
 }
-
-$(document).ready(function(){
-	$("#register-submit").click(function(){
-		var username=$("#register-username").val();
-		var password=$("#register-password").val();
-		var confirm_password=$("#confirm-password").val();
-		if(!check_null("register-username","用户名")) return false;
-		if(!check_null("register-password","密码")) return false;;
-		if(!check_null("confirm-password","密码")) return false;
-		if(password!=confirm_password){
-			$('#confirm-password').after('<span style="color:red;">*两次输入密码不一致</span>');
-			return false;
-		}
-		$.post("src/controller.php",
-			{
-				type:"register",
-				username:username,
-				password:password
-			},
-			function(data,status){
-				if(status!="success"){
-					alert("Error,Refresh");
-				}
-				else{
-					alert("注册成功");
-					window.location.href("main.html");
-				}
+function register_click(){
+	var username=$("#register-username").val();
+	var password=$("#register-password").val();
+	var confirm_password=$("#confirm-password").val();
+	if(!check_null("register-username","用户名")) return false;
+	if(!check_null("register-password","密码")) return false;;
+	if(!check_null("confirm-password","密码")) return false;
+	if(password!=confirm_password){
+		$('#confirm-password').next().text('*两次输入密码不一致');
+		return false;
+	}
+	else{
+		$('#confirm-password').next().text("");
+	}
+	$.post("src/controller.php",
+		{
+			type:"register",
+			username:username,
+			password:password
+		},
+		function(data,status){
+			var jdata = JSON.parse(data);
+			if(status!="success"){
+				alert("Error,Refresh");
+				alert(data['err']);
 			}
-			)
-	})
+			else if(jdata['status']=='fail'){
+				alert('insert error');
+			}
+			else{
+				alert("注册成功");
+				window.location.href = "main.html";
+			}
+		}
+	)
+}
+function login_click(){
+	var username=$("#login-username").val();
+	var password=$("#login-password").val();
+	var role=$("#login-role").val();
+	if(!check_null("login-username","用户名")) return false;
+	if(!check_null("login-password","密码")) return false;;
+
+	$.post("src/controller.php",
+		{
+			type:"login",
+			username:username,
+			password:password,
+			role:role
+		},
+		function(data,status){
+			jdata = JSON.parse(data);
+			if(status!="success"){
+				alert("Error");
+			}
+			else if(jdata["status"]=="fail"){
+				$("#login-password").next().text('用户名或密码错误');
+			}
+			else{
+				alert("登录成功");
+				window.location.href ="main.html";
+			}
+		}
+	)
+}
+$(document).ready(function(){
+	$("#register-submit").click(register_click);
+	$('#login-submit').click(login_click);
 })
 $(function() {
 

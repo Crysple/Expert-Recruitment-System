@@ -24,7 +24,11 @@ class Model{
 	public function __destruct() {
 		$this->link->close();
 	}
-
+	public function resetAll(){
+		$groupByArr = array();
+		$joinArr = array();
+		$fieldArr = array('*');
+	}
 	public function join($para){
 		if(is_array($para)){
 			foreach ($para as  $value) {
@@ -201,6 +205,7 @@ class Model{
 		//获取所有数据
 		$data = $result->fetch_all(MYSQLI_ASSOC);	
 		$this->stmt->close();
+		$this->resetAll();
 		return $data;
 
 		
@@ -238,6 +243,7 @@ class Model{
 		$id = $this->stmt->insert_id;
 		
 		$this->stmt->close();
+		$this->resetAll();
 		return $id;
 	}
 
@@ -267,6 +273,7 @@ class Model{
 		$res = $this->query($sql);
 //	echo $sql;	
 		$this->stmt->close();
+		$this->resetAll();
 		return $res;
 	}
 		
@@ -285,6 +292,7 @@ class Model{
 		$res = $this->query($sql);
 		
 		$this->stmt->close();
+		$this->resetAll();
 		return $res;
 	}
 

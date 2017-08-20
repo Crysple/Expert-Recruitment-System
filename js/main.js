@@ -2,7 +2,6 @@
 
 
 
-
 // functionality
 function addcertificate(){
 	$("#certificate").append('<div class="row db"><div class="col-xs-4"><input class="form-control ipstyle"></div><div class="col-xs-4"><input class="form-control ipstyle"></div><div class="col-xs-4"><button type="submit" class="btn btn-xs btn-default nbtn">删除</button></div></div>');
@@ -30,19 +29,26 @@ function left_changepassword(){
 	$("#a-menu2").click();
 }
 $(document).ready(function(){
-
-	$.post("src/controller.php",
+	phpurl = "src/controller.php";
+	$.post(phpurl,
 		{
 			type:"check_login"
 		},
 		function(data){
-			if(data['status']==false){
+			var jdata=JSON.parse(data);
+			if(jdata["status"]=="fail"){
 				alert("请先登录");
-				window.location.href("index.html");
+				window.location.href = "index.html";
 			}
 		}
-		)
-
+	);
+	$("button#logout").click(function(){
+		$.post(phpurl,
+		{
+			type:"logout"
+		});
+		window.location.href="index.html";
+	})
 	$("button#addcertificate").click(addcertificate);
 	$("button#addassess").click(addassess);
 	$("button#addworkexperience").click(addworkexperience);

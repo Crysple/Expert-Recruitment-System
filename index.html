@@ -37,16 +37,18 @@
 						<div class="col-lg-12">
 							<div id="login-form" action="" role="form" style="display: block;">
 								<div class="form-group">
-									<select name="role" id="role" tabindex="1" class="form-control" value="">
-									<option>用户</option>
-									<option>管理员</option>
+									<select name="role" id="login-role" tabindex="1" class="form-control" value="">
+									<option value="user">用户</option>
+									<option value="administrator">管理员</option>
 									</select>
 								</div>
 								<div class="form-group">
-									<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="用户名" value="">
+									<input type="text" name="username" id="login-username" tabindex="1" class="form-control" placeholder="用户名" value="">
+									<span style="color:red;"></span>
 								</div>
 								<div class="form-group">
-									<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="密码">
+									<input type="password" name="password" id="login-password" tabindex="2" class="form-control" placeholder="密码">
+									<span style="color:red;"></span>
 								</div>
 								<div class="form-group text-center">
 									<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -63,12 +65,15 @@
 							<div id="register-form" role="form" style="display: none;">
 								<div class="form-group">
 									<input type="text" name="username" id="register-username" tabindex="1" class="form-control" placeholder="用户名" value="">
+									<span style="color:red;"></span>
 								</div>
 								<div class="form-group">
 									<input type="password" name="password" id="register-password" tabindex="2" class="form-control" placeholder="密码">
+									<span style="color:red;"></span>
 								</div>
 								<div class="form-group">
 									<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码">
+									<span style="color:red;"></span>
 								</div>
 								<div class="form-group">
 									<div class="row">
