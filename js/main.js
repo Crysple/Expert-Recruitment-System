@@ -31,7 +31,17 @@ function left_changepassword(){
 }
 $(document).ready(function(){
 
-
+	$.post("src/controller.php",
+		{
+			type:"check_login"
+		},
+		function(data){
+			if(data['status']==false){
+				alert("请先登录");
+				window.location.href("index.html");
+			}
+		}
+		)
 
 	$("button#addcertificate").click(addcertificate);
 	$("button#addassess").click(addassess);

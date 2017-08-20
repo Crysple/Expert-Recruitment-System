@@ -44,6 +44,7 @@ body {
 	-webkit-transition: all 0.1s linear;
 	-moz-transition: all 0.1s linear;
 	transition: all 0.1s linear;
+	display:inline;
 }
 .panel-login input:hover,select:hover
 .panel-login input:focus,select:focus {
