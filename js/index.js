@@ -33,10 +33,9 @@ function register_click(){
 			var jdata = JSON.parse(data);
 			if(status!="success"){
 				alert("Error,Refresh");
-				alert(data['err']);
 			}
 			else if(jdata['status']=='fail'){
-				alert('insert error');
+				alert('用户名已存在');
 			}
 			else{
 				alert("注册成功");
@@ -75,6 +74,23 @@ function login_click(){
 	)
 }
 $(document).ready(function(){
+	$("#register-username").bind("input propertychange",function(){
+		if($('#register-username').val()!=""){
+			$.post("src/controller.php",
+			{
+				type:"check_name",
+				username:$('#register-username').val()
+			},
+			function(data){
+				if(data=="exist"){
+					$('#register-username').next().text('*用户名已存在');
+				}
+				else{
+					$('#register-username').next().text('');
+				}
+			})
+		}
+	})
 	$("#register-submit").click(register_click);
 	$('#login-submit').click(login_click);
 })

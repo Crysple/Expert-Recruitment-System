@@ -1,6 +1,26 @@
 
 .ipstyle{
 	height:22px;
+	width:180px;
+	display:inline;
+}
+.pstyle{
+	height:22px;
+	display:inline;
+}
+#a17{
+	width:500px;
+}
+#a18{
+	width:500px;
+}
+#below-head{
+	text-align: right;
+}
+.red{
+	color:red;
+	font-weight:bold;
+	font-size:15px;
 }
 .db div{
 	border: 1px solid;

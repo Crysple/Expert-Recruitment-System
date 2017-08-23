@@ -311,7 +311,7 @@ class Model{
 
 		array_unshift($values, $this->getParamTypeStr($values)); 
 
- 		call_user_func_array($callback, $this->refValues($values));
+ 		@call_user_func_array($callback, $this->refValues($values));
 		$res = $this->stmt->execute();
 		return $res;
 	}

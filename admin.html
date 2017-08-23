@@ -10,7 +10,7 @@
 	    <link href="css/bootstrap.min.css" rel="stylesheet">
 	    <link href="css/main.css" rel="stylesheet">
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	    <script src="js/main.js"></script>
+	    <script src="js/admin.js"></script>
 	</head>
 
 	
@@ -18,87 +18,81 @@
 
 		<div class="container">
 
-
-			<!-- 评审领域Modal -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">评审领域最多选两项</h4>
-			      </div>
-			      <div class="modal-body">
-			        <div class="checkbox">
-						<label class="checkbox-inline"><input type="checkbox" value="1" id="a1">幼儿园教育评估</label>
-						<label class="checkbox-inline"><input type="checkbox" value="2" id="a2">小学教育评估</label>
-						<label class="checkbox-inline"><input type="checkbox" value="3" id="a3">中学教育评估</label>
-					</div>
-					<div class="checkbox">
-						<label class="checkbox-inline"><input type="checkbox" value="4" id="a4">中职教育评估</label>
-						<label class="checkbox-inline"><input type="checkbox" value="5" id="a5">高职教育评估</label>
-						<label class="checkbox-inline"><input type="checkbox" value="6" id="a6">高校教育评估</label>
-					</div>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal" id="dialog-close">关闭</button>
-			        <button type="button" class="btn btn-primary" id="dialog-submit">保存修改</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-
-
 			<div class="page-header">
 				<h1>教育研究院专家征集系统</h1>
 			</div>
 			<div id="below-head">
 			</div>
 			<div class="row">
-<!--Left tab!-->
-				<div class="col-xs-2" id="leftslide">
-					<ul class="nav nav-pills nav-stacked">
-						<li class="active"><a href="#home" id="left-home">首页</a></li>
-						<li><a href="#" class="leftslidehref" id="left-expertinfo" >专家信息填入</a></li>
-						<li><a href="#" class="leftslidehref" id="left-changepassword">密码修改</a></li>
-						<li><button class="form-control" id="logout">退出登录</button></a></li>
-					</ul>
-				</div>
 
 <!--Top tab!-->				
-				<div class="col-xs-10">
+				<div class="col-xs-12">
 					<ul class="nav nav-tabs" id="tab-list">
 					 	<li class="active"><a data-toggle="tab" id="top-home" href="#home">首页</a></li>
+					 	<li id="li-menu2"><a data-toggle="tab" href="#menu2" id="a-menu2">专家信息维护
+					 	<button class="close" type="button">×</button>
+					 	</a></li>
 					 	<li id="li-menu1">
-					 		<a data-toggle="tab" href="#menu1" id="a-menu1">专家信息填入
+					 		<a data-toggle="tab" href="#menu1" id="a-menu1">专家详细信息
 					 			<button class="close" type="button">×</button>
 					 		</a>
 					 	</li>
-					 	
-					 	<li id="li-menu2"><a data-toggle="tab" href="#menu2" id="a-menu2">密码修改
-					 	<button class="close" type="button">×</button>
-					 	</a></li>
 					</ul>
 <!--Top content!-->
 					<div class="tab-content">
 					 	<div id="home" class="tab-pane fade in active">
 							<div class="jumbotron" id="att">
-					 		<h3>填表说明</h3>
+					 		<h3>当前有<a class="red" id="wait-num"></a>个专家待审核</h3>
 					 		<hr class="my-4">
-					 		<p>1.带*为必填项。</p>
-					 		<p>2.证书编号和证书有效时间：管理员审核通过后填写，用户不得自己填写。</p>
-					 		<p>3.出生日期：从日历中选择，用户不得自己填写。</p>
-					 		<p>4.工作经历的开始时间，终止时间：从日历中选择，用户不得自己填写。</p>
-					 		<p>5.回避单位：用户曾经工作过的单位或者正在工作的单位。</p>
 					 		</div>
+						</div>
+						<div id="menu2" class="tab-pane fade">
+						    <div class="row">
+						    	<div class="col-xs-5">评审领域
+						    	<select class="form-control pstyle" id="s-field" style="display:inline">
+						    		<option value="0" id="a0">所有</option>
+									<option value="1" id="a1">幼儿园教育评估</option>
+									<option value="2" id="a2">小学教育评估</option>
+									<option value="3" id="a3">中学教育评估</option>
+
+									<option value="4" id="a4">中职教育评估</option>
+									<option value="5" id="a5">高职教育评估</option>
+									<option value="6" id="a6">高校教育评估</option>
+						    	</select>
+						    	</div>
+						    	<div class="col-xs-4">状态
+						    	<select class="form-control pstyle" id="s-status" style="display:inline">
+						    		<option value="0" id="b0">所有</option>
+									<option value="1" id="b1">待审核</option>
+									<option value="2" id="b2">可用</option>
+									<option value="-2" id="bn2">失效</option>
+						    	</select>
+						    	</div>
+						    	<div class="col-xs-3">
+						    	<button class="btn btn-default" id="query">查询</button>
+						    	</div>
+						    </div>
+						    <hr class="my-4">
+						    <div class="row db">
+						    	<div class="col-xs-2">专家编号
+						    	</div>
+						    	<div class="col-xs-1">专家名
+						    	</div>
+						    	<div class="col-xs-2">工作单位
+						    	</div>
+						    	<div class="col-xs-3">联系电话
+						    	</div>
+						    	<div class="col-xs-1">入库类型
+						    	</div>
+						    	<div class="col-xs-2">状态
+						    	</div>
+						    	<div class="col-xs-1">操作
+						    	</div>
+						    </div>
 						</div>
 						<div id="menu1" class="tab-pane fade">
 <!-- expert information!-->
 							<div id="expertinfo">
-								<div class="row db">
-									<button type="submit" class="btn btn-default" id="edit">编辑</button>
-									<button type="submit" class="btn btn-default" id="save" disabled="disabled">保存</button>
-									<button type="submit" class="btn btn-default" id="submit" disabled="disabled">提交</button>
-								</div>
 								<div id="allinfo">
 								<div class="row db">
 									<div class="col-xs-12 label label-default headdiv">
@@ -505,29 +499,28 @@
 									<textarea class="form-control ii" id="remark"></textarea>
 									</div></div>
 								</div>
+								<div class="row db">
+									<div class="col-xs-12 label label-default headdiv">
+									<h4>请填写驳回原因</h4>（不超过五百字）
+									</div>
+									<div id="doubleheight">
+									<div class="col-xs-12">
+									<textarea class="form-control ii" id="reason"></textarea>
+									</div></div>
 								</div>
-							</div>
-						</div>
-						<div id="menu2" class="tab-pane fade">
-						    <h3>密码修改</h3>
-						    <form id="register-form" onclick="return checkForm(this)" action="" method="post" role="form">
-								<div class="form-group">
-									<input type="password" name="old-password" id="old-password" tabindex="1" class="form-control" placeholder="当前密码" value="">
-								</div>
-								<div class="form-group">
-									<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="密码">
-								</div>
-								<div class="form-group">
-									<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码">
-								</div>
-								<div class="form-group">
-									<div class="row">
-										<div class="col-sm-6 col-sm-offset-3">
-											<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="确定">
-										</div>
+								<div class="row db" id="doubleheight">
+									<div class="col-xs-4">
+										<button class="btn btn-default" id="admit">同意申请</button>
+									</div>
+									<div class="col-xs-4">
+										<button class="btn btn-default" id="reject">驳回申请</button>
+									</div>
+									<div class="col-xs-4">
+										<button class="btn btn-default" id="pause">终止资格</button>
 									</div>
 								</div>
-							</form>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
