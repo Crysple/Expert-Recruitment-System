@@ -57,19 +57,6 @@
 	border: 1px solid rgb(192,192,192);
 	border-radius:3px;
 }
-#li-menu1{
-	display:none;
-}
-#menu1{
-	display:none;
-}
-#li-menu2{
-	display:none;
-}
-#menu2{
-	display:none;
-}
-
 .btn-register {
 	background-color: #1CB94E;
 	outline: none;

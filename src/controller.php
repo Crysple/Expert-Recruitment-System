@@ -63,6 +63,13 @@ class Controller{
 	protected function check_login(){
 		$data = array();
 		if(isset($_SESSION['user'])){
+			if($_SESSION['expert_status']==0){
+				echo json_encode(array(
+					"username"=>$_SESSION['user'],
+					'status'=>'success',
+					'expert_status'=>'0'));
+				return true;
+			}
 			$result = $this->model->select("expert",array("username"=>$_SESSION['user']));
 			$assess_res = $this->model->select("assessment",array("username"=>$_SESSION['user']));
 			$avoidunit_res = $this->model->select("avoid_unit",array("username"=>$_SESSION['user']));
@@ -118,9 +125,9 @@ class Controller{
 
 	protected function expert(){
 		$data = array();
-		//改gender那些value
 		$data = json_decode($_POST["data"],true);
 		$data['status']=$_POST['status'];
+		$data['username']=$_SESSION['user'];
 		$resule;
 		if($_POST['status']=='0'){
 			$data['status']=1;
@@ -141,15 +148,40 @@ class Controller{
 		}
 	}
 	protected function adminInit(){
-		$alldata = $this->model->select("expert");
-		$wait_number = $this->model->count("expert",array("status"=>1));
+		$result = $this->model->select("expert",array("status"=>1));
+		$wait_number = count($result);
 		echo json_encode(array(
-			"alldata"=>$alldata,
+			"alldata"=>$result,
 			"wait_number"=>$wait_number));
 	}
 	protected function updateUser(){
 		$info = json_decode($_POST["info"],true);
 		$this->model->update("expert",$info,array("username"=>$_POST["username"]));
+	}
+	protected function modify_password(){
+		$old_password = $_POST['old_password'];
+		$new_password = $_POST['password'];
+		$result = $this->model->count("user",array("username"=>$_SESSION['user'],"password"=>$old_password));
+		if($result!=1){
+			echo json_encode(array("status"=>"fail"));
+			return;
+		}
+		$result = $this->model->update("user",array("password"=>$new_password),array("username"=>$_SESSION['user']));
+		echo json_encode(array("status"=>'success'));
+		unset($_SESSION['user']);
+	}
+	protected function select_query(){
+		$field = $_POST['field'];
+		$status = $_POST['status'];
+		$tableName = array();
+		$where = array();
+		if($field!=0) {
+			$this->model->join("field");
+			$where['field_name']=$field;
+		}
+		if($status!=0) $where['status']=$status;
+		$alldata = $this->model->select("expert",$where);
+		echo json_encode(array("status"=>'success',"alldata"=>$alldata));
 	}
 	public function run(){
 		if (isset($_POST['type'])) {
@@ -200,8 +232,13 @@ class Controller{
 				case "getall":
 					$this->getall();
 					break;
+				case "modify_password":
+					$this->modify_password();
+					break;
+				case "select_query":
+					$this->select_query();
+					break;
 				default:
-					echo "enter_default";
 					break;
 			}
 		}

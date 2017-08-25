@@ -68,7 +68,10 @@ function login_click(){
 			}
 			else{
 				alert("登录成功");
-				window.location.href ="main.html";
+				if(role=="user")
+					window.location.href ="main.html";
+				else
+					window.location.href ="admin.html";
 			}
 		}
 	)

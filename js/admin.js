@@ -19,13 +19,11 @@ function del(){
 	$(this).parent().parent().remove();
 }
 function left_expertinfo(){
-	$("#menu1").show();
-	$("#li-menu1").show();
+	show_menu1();
 	$("#a-menu1").click();
 }
 function left_changepassword(){
-	$("#menu2").show();
-	$("#li-menu2").show();
+	show_menu2();
 	$("#a-menu2").click();
 }
 function disable(id){
@@ -136,8 +134,9 @@ function init(){
 		$("#wait-num").text(jdata["wait_number"]);
 		alldata = jdata["alldata"];
 		var toadd="";
+		$(".expert-list").remove();
 		for(var key in alldata){
-			var now='<div class="row db"><div class="col-xs-2">';
+			var now='<div class="row db expert-list"><div class="col-xs-2">';
 			now+=alldata[key]['ecertificate_id'];
 			now+='</div><div class="col-xs-1">';
 			now+=alldata[key]['name'];
@@ -155,6 +154,7 @@ function init(){
 			toadd+=now;
 		}
 		$("#menu2").append(toadd);
+		$(".check").click(tocheck) ;
 	})
 }
 function tocheck(){
@@ -279,15 +279,75 @@ function pause(){
 		alert(data);
 	});
 }
+function toquery(){
+	var field_type = $("#s-field").val();
+	var status_type = $("#s-status").val();
+	$.post(phpurl,
+	{
+		type:"select_query",
+		field:field_type,
+		status:status_type
+	},function(data){
+		var jdata = JSON.parse(data);
+		alldata = jdata["alldata"];
+		var toadd="";
+		$(".expert-list").remove();
+		for(var key in alldata){
+			var now='<div class="row db expert-list"><div class="col-xs-2">';
+			now+=alldata[key]['ecertificate_id'];
+			now+='</div><div class="col-xs-1">';
+			now+=alldata[key]['name'];
+			now+='</div><div class="col-xs-2">';
+			now+=alldata[key]['employer'];
+			now+='</div><div class="col-xs-3">';
+			now+=alldata[key]['phone'];
+			now+='</div><div class="col-xs-1">';
+			now+="注册";
+			now+='</div><div class="col-xs-2">';
+			now+=changeStatus(alldata[key]['status']);
+			now+='</div><div class="col-xs-1">';
+			now+='<button class="btn btn-xs check" id="check'+key+'" value="'+key+'">查看</button>';
+			now+="</div></div>";
+			toadd+=now;
+		}
+		$("#menu2").append(toadd);
+		$(".check").click(tocheck) ;
+	})
+}
+function hide_menu1(){
+	list_menu1.remove()
+	menu1.remove();
+}
+function show_menu1(){
+	$("#tab-list").append(list_menu1);
+	$(".tab-content").append(menu1);
+}
+function hide_menu2(){
+	list_menu2.remove()
+	menu2.remove();
+}
+function show_menu2(){
+	$("#tab-list").append(list_menu2);
+	$(".tab-content").append(menu2);
+}
 $(document).ready(function(){
+	//initial
 	select_name="";
 	phpurl = "src/controller.php";
 	init();
+	menu1 = $("#menu1");
+	menu2 = $("#menu2");
+	list_menu1 = $("#li-menu1");
+	list_menu2 = $("#li-menu2");
+	hide_menu1();
 	$(".check").click(tocheck) ;
 	//0为第一次登录，1和1以上就是已经编辑过了
 	//check_login();
 	$("#wait-num").click(left_changepassword);
 	$("#allinfo").find('*').attr("disabled",true);
+
+	//handle click
+	$("button#query").click(toquery);
 	$("button#edit").click(to_edit);
 	$("button#submit").click(to_submit);
 	$("button#logout").click(function(){
@@ -306,12 +366,11 @@ $(document).ready(function(){
 	$("#reject").click(reject);
 	$("#pause").click(pause);
 
-
   //Tab
 	$('#tab-list').on('click','.close',function(){
 		var tabID = $(this).parents('a').attr('href');
-		$(this).parents('li').hide();
-		$(tabID).hide();
+		$(this).parents('li').remove();
+		$(tabID).remove();
 
 		//display first tab
 		var tabFirst = $('#tab-list a:first');
@@ -320,10 +379,6 @@ $(document).ready(function(){
 });
 
 
-//query
-$(document).on('click', 'button#query',function() {
-	$(".check").click(tocheck) ;
-}) ;
 //certificate
 $(document).on('click', 'button#addcertificate',function() {
 	$(".nbtn").click(del) ;
