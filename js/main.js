@@ -61,11 +61,11 @@ function del(){
 }
 function left_expertinfo(){
 	show_menu1();
-	$("#top-home").click();
+	$("#li-menu1").click();
 }
 function left_changepassword(){
 	show_menu2();
-	$("#top-home").click();
+	$("#li-menu2").click();
 }
 function disable(id){
 	$("#"+id).attr("disabled",true);
@@ -84,15 +84,17 @@ function to_edit(){
 	disable("issuing_agency");
 }
 function check_all(){
+	var flag = true;
 	$("#allinfo").find('input').each(function(){
 		if($(this).attr("disabled")!="disabled"){
 			if($(this).val()==""){
 				$(this).focus();
+				flag = false;
 				return false;
 			}
 		}
 	})
-	return true;
+	return flag;
 }
 function check_login(){
 	$.post(phpurl,
@@ -175,141 +177,141 @@ function check_login(){
 	);
 }
 function to_submit(){
-	if(check_all()==false){
-		return false;
-	}
-	var general_info = new Object();
-	var certificate_info = new Object();
-	var assess_info = new Object();
-	var workexperience_info = new Object();
-	var avoidunit_info = new Object();
-	//general_info
-	$(".ii").each(function(){
-		general_info[$(this)[0].id] = $(this).val();
-	});
-	
-	//certificate
-	var i=0,flag=1;
-	$("#certificate").find("input").each(function(){
-		flag=1-flag;
-		if(flag==0){
-			certificate_info[i] = new Object();
-			certificate_info[i]["username"]=username;
-			certificate_info[i]["fieldname"]=$(this).val();
-		}
-		else{
-			certificate_info[i]["number"]=$(this).val();
-			++i;
-		}
-	});
-	//assessment
-	i=0,flag=-1;
-	$("#assess").find("*").each(function(){
-		var tag=$(this)[0].tagName;
-		if(tag=="INPUT"||tag=="TEXTAREA"||tag=="SELECT"){
-			flag=(flag+1)%4;
-			switch(flag){
-				case 0:
-					assess_info[i] = new Object();
-					assess_info[i]['username']=username;
-					assess_info[i]['number']=i;
-					assess_info[i]['time']=$(this).val();
-					break;
-				case 1:
-					assess_info[i]['name']=$(this).val()
-					break;
-				case 2:
-					assess_info[i]['description']=$(this).val()
-					break;
-				case 3:
-					assess_info[i]['type']=$(this).val()
-					++i;
-					break;
+	var temp = check_all();
+	if(temp!=false){
+		var general_info = new Object();
+		var certificate_info = new Object();
+		var assess_info = new Object();
+		var workexperience_info = new Object();
+		var avoidunit_info = new Object();
+		//general_info
+		$(".ii").each(function(){
+			general_info[$(this)[0].id] = $(this).val();
+		});
+		
+		//certificate
+		var i=0,flag=1;
+		$("#certificate").find("input").each(function(){
+			flag=1-flag;
+			if(flag==0){
+				certificate_info[i] = new Object();
+				certificate_info[i]["username"]=username;
+				certificate_info[i]["fieldname"]=$(this).val();
 			}
-		}
-	});
-	//workexperience
-	i=0,flag=-1;
-	$("#workexperience").find("*").each(function(){
-		var tag=$(this)[0].tagName;
-		if(tag=="INPUT"||tag=="TEXTAREA"||tag=="SELECT"){
-			flag=(flag+1)%5;
-			switch(flag){
-				case 0:
-					workexperience_info[i] = new Object();
-					workexperience_info[i]['username']=username;
-					workexperience_info[i]['number']=i;
-					workexperience_info[i]['start_time']=$(this).val();
-					break;
-				case 1:
-					workexperience_info[i]['end_time']=$(this).val()
-					break;
-				case 2:
-					workexperience_info[i]['employer']=$(this).val()
-					break;
-				case 3:
-					workexperience_info[i]['duty']=$(this).val()
-					break;
-				case 4:
-					workexperience_info[i]['witness']=$(this).val()
-					++i;
-					break;
+			else{
+				certificate_info[i]["number"]=$(this).val();
+				++i;
 			}
-		}
-	});
-	//avoidunit
-	i=0,flag=9;
-	$("#avoidunit").find("*").each(function(){
-		var tag=$(this)[0].tagName;
-		if(tag=="INPUT"||tag=="TEXTAREA"||tag=="SELECT"){
-			flag=(flag+1)%2;
-			switch(flag){
-				case 0:
-					avoidunit_info[i] = new Object();
-					avoidunit_info[i]['username']=username;
-					avoidunit_info[i]['number']=i;
-					avoidunit_info[i]['name']=$(this).val();
-					break;
-				case 1:
-					avoidunit_info[i]['is_employer']=$(this).val()
-					++i;
-					break;
+		});
+		//assessment
+		i=0,flag=-1;
+		$("#assess").find("*").each(function(){
+			var tag=$(this)[0].tagName;
+			if(tag=="INPUT"||tag=="TEXTAREA"||tag=="SELECT"){
+				flag=(flag+1)%4;
+				switch(flag){
+					case 0:
+						assess_info[i] = new Object();
+						assess_info[i]['username']=username;
+						assess_info[i]['number']=i;
+						assess_info[i]['time']=$(this).val();
+						break;
+					case 1:
+						assess_info[i]['name']=$(this).val()
+						break;
+					case 2:
+						assess_info[i]['description']=$(this).val()
+						break;
+					case 3:
+						assess_info[i]['type']=$(this).val()
+						++i;
+						break;
+				}
 			}
-		}
-	});
-	$.post(phpurl,{
-		data:JSON.stringify(general_info),
-		type:"expert",
-		status:expert_status
-		}
-		);
+		});
+		//workexperience
+		i=0,flag=-1;
+		$("#workexperience").find("*").each(function(){
+			var tag=$(this)[0].tagName;
+			if(tag=="INPUT"||tag=="TEXTAREA"||tag=="SELECT"){
+				flag=(flag+1)%5;
+				switch(flag){
+					case 0:
+						workexperience_info[i] = new Object();
+						workexperience_info[i]['username']=username;
+						workexperience_info[i]['number']=i;
+						workexperience_info[i]['start_time']=$(this).val();
+						break;
+					case 1:
+						workexperience_info[i]['end_time']=$(this).val()
+						break;
+					case 2:
+						workexperience_info[i]['employer']=$(this).val()
+						break;
+					case 3:
+						workexperience_info[i]['duty']=$(this).val()
+						break;
+					case 4:
+						workexperience_info[i]['witness']=$(this).val()
+						++i;
+						break;
+				}
+			}
+		});
+		//avoidunit
+		i=0,flag=9;
+		$("#avoidunit").find("*").each(function(){
+			var tag=$(this)[0].tagName;
+			if(tag=="INPUT"||tag=="TEXTAREA"||tag=="SELECT"){
+				flag=(flag+1)%2;
+				switch(flag){
+					case 0:
+						avoidunit_info[i] = new Object();
+						avoidunit_info[i]['username']=username;
+						avoidunit_info[i]['number']=i;
+						avoidunit_info[i]['name']=$(this).val();
+						break;
+					case 1:
+						avoidunit_info[i]['is_employer']=$(this).val()
+						++i;
+						break;
+				}
+			}
+		});
+		$.post(phpurl,{
+			data:JSON.stringify(general_info),
+			type:"expert",
+			status:expert_status
+			}
+			);
 
-	// alert(JSON.stringify(certificate_info));
-	// alert(JSON.stringify(assess_info));
-	// alert(JSON.stringify(workexperience_info));
-	// alert(JSON.stringify(avoidunit_info));
-	$.post(phpurl,{
-		data:JSON.stringify(certificate_info),
-		type:"qualification"
-		});
-	$.post(phpurl,{
-		data:JSON.stringify(assess_info),
-		type:"assessment"
-		});
-	$.post(phpurl,{
-		data:JSON.stringify(workexperience_info),
-		type:"work_experience"
-		});
-	$.post(phpurl,{
-		data:JSON.stringify(avoidunit_info),
-		type:"avoid_unit"
-		});
-	$.post(phpurl,{
-		data:JSON.stringify(field_info),
-		type:"field"
-		});
-	alert("提交成功");
-	$("#expert-status").text("审核中");
+		// alert(JSON.stringify(certificate_info));
+		// alert(JSON.stringify(assess_info));
+		// alert(JSON.stringify(workexperience_info));
+		// alert(JSON.stringify(avoidunit_info));
+		$.post(phpurl,{
+			data:JSON.stringify(certificate_info),
+			type:"qualification"
+			});
+		$.post(phpurl,{
+			data:JSON.stringify(assess_info),
+			type:"assessment"
+			});
+		$.post(phpurl,{
+			data:JSON.stringify(workexperience_info),
+			type:"work_experience"
+			});
+		$.post(phpurl,{
+			data:JSON.stringify(avoidunit_info),
+			type:"avoid_unit"
+			});
+		$.post(phpurl,{
+			data:JSON.stringify(field_info),
+			type:"field"
+			});
+		alert("提交成功");
+		$("#expert-status").text("审核中");
+	}
 }
 
 function check_null(id,fieldname){
@@ -329,6 +331,10 @@ function modify_password_click(){
 	if(!check_null("old-password","密码")) return false;
 	if(!check_null("password","密码")) return false;;
 	if(!check_null("confirm-password","密码")) return false;
+	if(password.length<6||password.length>20){
+		$("#password").next().text("新密码必须由6-12个字符组成");
+		return false;
+	}
 	if(password!=confirm_password){
 		$('#confirm-password').next().text('*两次输入密码不一致');
 		return false;
@@ -358,23 +364,26 @@ function modify_password_click(){
 	)
 }
 function hide_menu1(){
-	menu1.remove();
-	list_menu1.remove();
+	menu1.hide();
+	list_menu1.hide();
 }
 function show_menu1(){
 	
-	$(".tab-content").append(menu1);
-	$("#tab-list").append(list_menu1);
+	// $(".tab-content").append(menu1);
+	// $("#tab-list").append(list_menu1);
+	menu1.show();
+	list_menu1.show();
 }
 function hide_menu2(){
 	
-	menu2.remove();
-	list_menu2.remove();
+	menu2.hide();
+	list_menu2.hide();
 }
 function show_menu2(){
-	
-	$(".tab-content").append(menu2);
-	$("#tab-list").append(list_menu2);
+	menu2.show();
+	list_menu2.show();
+	// $(".tab-content").append(menu2);
+	// $("#tab-list").append(list_menu2);
 }
 $(document).ready(function(){
 	//initialize
@@ -387,8 +396,8 @@ $(document).ready(function(){
 	menu2 = $("#menu2");
 	list_menu1 = $("#li-menu1");
 	list_menu2 = $("#li-menu2");
-	//hide_menu1();
-	//hide_menu2();
+	hide_menu1();
+	hide_menu2();
 	field_info = new Object();
 	$("#dialog-submit").click(function(){
 		//field
@@ -430,8 +439,8 @@ $(document).ready(function(){
   //Tab
 	$('#tab-list').on('click','.close',function(){
 		var tabID = $(this).parents('a').attr('href');
-		$(this).parents('li').remove();
-		$(tabID).remove();
+		$(this).parents('li').hide();
+		$(tabID).hide();
 
 		//display first tab
 		var tabFirst = $('#tab-list a:first');

@@ -1,5 +1,4 @@
 function check_null(id,fieldname){
-	console.log('#'+id);
 	if($('#'+id).val()==""){
 		$('#'+id).next().text('*'+fieldname+'不能为空');
 		return false;
@@ -16,6 +15,10 @@ function register_click(){
 	if(!check_null("register-username","用户名")) return false;
 	if(!check_null("register-password","密码")) return false;;
 	if(!check_null("confirm-password","密码")) return false;
+	if(password.length<6||password.length>20){
+		$("#register-password").next().text("新密码必须由6-12个字符组成");
+		return false;
+	}
 	if(password!=confirm_password){
 		$('#confirm-password').next().text('*两次输入密码不一致');
 		return false;

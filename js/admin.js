@@ -250,7 +250,6 @@ function admit(){
 		info:JSON.stringify(tosend),
 		username:select_name
 	},function(data){
-		alert(data);
 	});
 }
 function reject(){
@@ -263,7 +262,6 @@ function reject(){
 		info:JSON.stringify(tosend),
 		username:select_name
 	},function(data){
-		alert(data);
 	});
 }
 function pause(){
@@ -276,7 +274,6 @@ function pause(){
 		info:JSON.stringify(tosend),
 		username:select_name
 	},function(data){
-		alert(data);
 	});
 }
 function toquery(){
@@ -321,6 +318,9 @@ function hide_menu1(){
 function show_menu1(){
 	$("#tab-list").append(list_menu1);
 	$(".tab-content").append(menu1);
+	$("#admit").click(admit);
+	$("#reject").click(reject);
+	$("#pause").click(pause);
 }
 function hide_menu2(){
 	list_menu2.remove()
@@ -329,6 +329,7 @@ function hide_menu2(){
 function show_menu2(){
 	$("#tab-list").append(list_menu2);
 	$(".tab-content").append(menu2);
+
 }
 $(document).ready(function(){
 	//initial
