@@ -1,3 +1,3 @@
-# Expert-Recruitment-Sysment
+# Expert-Recruitment-System
 My Database Homework
-This a Expert Recruitment Sysment
+This a Expert Recruitment System
